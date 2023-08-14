@@ -10,12 +10,12 @@ function generateSlug(title) {
         .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
 }
 
-const getFunc = (req, res) => {
+const get = (req, res) => {
     res.sendFile(path.join(__dirname + "/index.html"));
 };
 
 // Route to handle the form submission and create a new post
-const postFunc = async (req, res) => {
+const post = async (req, res) => {
     console.log("hi");
     try {
         const title = req.body.title;
@@ -44,4 +44,4 @@ const postFunc = async (req, res) => {
     }
 };
 
-module.exports = { getFunc, postFunc };
+module.exports = { get, post };
