@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create New Post</title>
+    </head>
+    <body>
+        <h1>Create New Post</h1>
+        <form action="/signup" method="POST">
+            <label for="username">Username:</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required
+            /><br /><br />
+
+            <label for="password">Password:</label>
+            <input
+                type="text"
+                id="password"
+                name="password"
+                required
+            /><br /><br />
+            ><br /><br />
+
+            <div id="error" style="color: red"></div>
+            <input type="submit" value="Create Post" />
+        </form>
+
+        <script src="auth/signup/script.js"></script>
+    </body>
+</html>
