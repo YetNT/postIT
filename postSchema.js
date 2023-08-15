@@ -18,6 +18,18 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    mode: {
+        /**
+         * Mode 0 = Dev post
+         * Mode 1 = Public post (Anybody can view and find)
+         * Mode 2 = Private 1 (Anybody with link can view)
+         * Mode 3 = Private 2 (Only author can view)
+         * Mode 4 = Moderated post
+         * Mode 5 = Archived post
+         */
+        type: Number,
+        default: 1,
+    },
     created: {
         type: Date,
         default: Date.now,
