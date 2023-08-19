@@ -54,6 +54,15 @@ async function validateSession(req, res, next) {
     next();
 }
 
+function generateSlug(title) {
+    // Convert to lowercase and replace non-alphanumeric characters and spaces with a dash
+    return title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "") // Replace non-word characters (excluding spaces and dashes)
+        .replace(/\s+/g, "-") // Replace spaces with dashes
+        .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
+}
+
 const PostMode = Object.freeze({
     dev: 0,
     public: 1,
@@ -63,4 +72,9 @@ const PostMode = Object.freeze({
     archived: 5,
 });
 
-module.exports = { verifySessionToken, validateSession, PostMode };
+module.exports = {
+    verifySessionToken,
+    validateSession,
+    PostMode,
+    generateSlug,
+};

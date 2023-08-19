@@ -1,15 +1,6 @@
-const User = require("../../../userSchema.js");
+const User = require("../../../userSchema");
 const path = require("path");
-
-function generateSlug(title) {
-    // Convert to lowercase and replace non-alphanumeric characters and spaces with a dash
-    return title
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, "") // Replace non-word characters (excluding spaces and dashes)
-        .replace(/\s+/g, "-") // Replace spaces with dashes
-        .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
-}
-console.log(generateSlug("I am fucking gay 12"));
+const { generateSlug } = require("../../../util");
 
 function generateToken() {
     // Get the current date in milliseconds
