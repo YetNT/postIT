@@ -8,5 +8,5 @@ signin.get = (req, res) => {
 signup.get = (req, res) => {
     res.sendFile(path.join(__dirname + "/signup" + "/index.html"));
 };
-
+signup.post = require("./signup/exports");
 module.exports = { signup, signin };
