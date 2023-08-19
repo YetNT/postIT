@@ -18,7 +18,7 @@ const get = async (req, res) => {
             return res.status(405).send("Not allowed.");
         }
 
-        res.render("index", {
+        res.render("post/index", {
             title: post.title,
             content: post.content,
         });

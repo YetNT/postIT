@@ -25,7 +25,7 @@ app.use(cors());
 app.use(morgan("combined"));
 app.use(cookieParser());
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "public", "post"));
+app.set("views", path.join(__dirname, "public", "_ejs"));
 
 mongoose
     .connect(process.env.MONGO, {
