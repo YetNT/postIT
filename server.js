@@ -8,11 +8,13 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejs = require("ejs");
 const port = 3000;
-
+const cookieParser = require("cookie-parser");
 const app = express();
+const { validateSession } = require("./util");
 
 const create = require("./public/create/exports");
 const posts = require("./public/post/exports");
+const { signup, signin } = require("./public/auth/exports");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +22,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(helmet());
 app.use(cors());
 app.use(morgan("combined"));
+app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "public", "post"));
 
@@ -39,15 +42,22 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, `index.html`));
 });
 
-app.get("/create", create.getFunc);
-app.post("/create", create.postFunc);
-
+app.get("/post/create", validateSession, create.get);
+app.post("/create", create.post);
+app.get("/test", validateSession, (req, res) => {
+    res.status(200).send("i am test");
+});
 app.get("/post/:id", posts.get);
 
+app.get("/signup", signup.get);
+app.post("/signup", signup.post);
+app.get("/signin", signin.get);
+
+/*
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, "public", "404", "404.html"));
 });
-
+*/
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

@@ -18,8 +18,12 @@ function hasLowercaseLetters(input) {
     return lowercaseLetters.test(input);
 }
 
-function invalidPassword(input) {
-    document.getElementById("error").innerText = input;
+function passwordError(input) {
+    document.getElementById("passwordError").innerText = input;
+}
+
+function usernameError(input) {
+    document.getElementById("usernameError").innerText = input;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -30,22 +34,27 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         event.preventDefault();
         const password = document.getElementById("password").value;
+        const username = document.getElementById("username").value;
+
+        if (hasSpecialCharacters(username))
+            return usernameError("Username cannot contain special characters.");
+        if (username.length < 4) return usernameError("Username is too short.");
+
         if (!hasNumbers(password))
-            return invalidPassword("Password does not contain numbers!");
+            return passwordError("Password does not contain numbers!");
         if (!hasLowercaseLetters(password))
-            return invalidPassword(
+            return passwordError(
                 "Password does not contain lowercase letters!"
             );
         if (!hasUppercaseLetters(password))
-            return invalidPassword(
+            return passwordError(
                 "Password does not contain uppercase letters!"
             );
         if (!hasSpecialCharacters(password))
-            return invalidPassword(
+            return passwordError(
                 "Password does not contain special characters!"
             );
-        if (password.length < 5)
-            return invalidPassword("Password is too short!");
+        if (password.length < 5) return passwordError("Password is too short!");
         form.submit();
     });
 });

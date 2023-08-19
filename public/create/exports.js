@@ -11,19 +11,17 @@ function generateSlug(title) {
 }
 
 const get = (req, res) => {
-    res.sendFile(path.join(__dirname + "/index.html"));
+    return res.status(200).sendFile(path.join(__dirname + "/index.html"));
 };
 
 // Route to handle the form submission and create a new post
 const post = async (req, res) => {
-    console.log("hi");
     try {
         const title = req.body.title;
         const content = req.body.content;
+        const user = JSON.parse(req.cookies.user["_id"]);
         const id = generateSlug(title);
         let query = { id: id };
-        console.log("bruh");
-        console.log(title + content + id);
 
         let existing = await Post.findOne(query);
         if (existing) return res.status(403).send("Alredy exists.");
@@ -31,7 +29,7 @@ const post = async (req, res) => {
             title: title,
             content: content,
             id: id,
-            authorId: "yetnt",
+            authorId: user.id,
         });
 
         await post.save();
