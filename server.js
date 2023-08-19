@@ -10,11 +10,12 @@ const ejs = require("ejs");
 const port = 3000;
 const cookieParser = require("cookie-parser");
 const app = express();
-const { validateSession } = require("./util");
+const validateSession = require("./public/_auth/isSignedIn");
 
 const create = require("./public/create/exports");
 const posts = require("./public/post/exports");
-const { signup, signin } = require("./public/auth/exports");
+const signup = require("./public/signup/exports");
+const signin = require("./public/signin/exports");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,20 +45,18 @@ app.get("/", (req, res) => {
 
 app.get("/post/create", validateSession, create.get);
 app.post("/create", create.post);
-app.get("/test", validateSession, (req, res) => {
-    res.status(200).send("i am test");
-});
+
 app.get("/post/:id", posts.get);
 
 app.get("/signup", signup.get);
 app.post("/signup", signup.post);
 app.get("/signin", signin.get);
 
-/*
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, "public", "404", "404.html"));
+    res.status(404).sendFile(
+        path.join(__dirname, "/public", "/_404", "/404.html")
+    );
 });
-*/
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
