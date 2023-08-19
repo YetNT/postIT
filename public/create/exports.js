@@ -1,14 +1,6 @@
 const path = require("path");
 const Post = require("../../postSchema");
-
-function generateSlug(title) {
-    // Convert to lowercase and replace non-alphanumeric characters and spaces with a dash
-    return title
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, "") // Replace non-word characters (excluding spaces and dashes)
-        .replace(/\s+/g, "-") // Replace spaces with dashes
-        .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
-}
+const { generateSlug, PostMode } = require("../../util");
 
 const get = (req, res) => {
     return res.status(200).sendFile(path.join(__dirname + "/index.html"));
@@ -19,6 +11,7 @@ const post = async (req, res) => {
     try {
         const title = req.body.title;
         const content = req.body.content;
+        const option = req.body.option; // post type options.
         const user = JSON.parse(req.cookies.user["_id"]);
         const id = generateSlug(title);
         let query = { id: id };
@@ -30,6 +23,7 @@ const post = async (req, res) => {
             content: content,
             id: id,
             authorId: user.id,
+            mode: PostMode[option],
         });
 
         await post.save();
