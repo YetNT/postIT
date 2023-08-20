@@ -2,10 +2,25 @@
 <html>
     <head>
         <title>Express HTML Example</title>
-        <script src="script.js"></script>
+        <script defer src="script.js"></script>
+        <link href="./style.css" rel="stylesheet" type="text/css" />
         <!-- This is the default, so no exact link is needed.-->
     </head>
     <body>
-        <h1>Hello from Express!</h1>
+        <div id="navbarBackground">
+            <img
+                src="./_img/list.svg"
+                alt="loading"
+                id="navbarLines"
+                onclick="navbarLineButtonClicked()"
+            />
+            <div id="topnav">
+                <a class="navA" href="#home">Home</a>
+                <a class="navA" href="#about">About</a>
+            </div>
+        </div>
+        <main>
+            <h1 class="name">PostIT</h1>
+        </main>
     </body>
 </html>
