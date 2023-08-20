@@ -1,0 +1,131 @@
+/* animations */
+@keyframes nlh {
+    0% {
+        rotate: -360deg;
+    }
+    50% {
+        rotate: -120deg;
+    }
+    75% {
+        rotate: -280deg;
+    }
+    100% {
+        rotate: -360deg;
+    }
+}
+
+@keyframes hideNav {
+    0% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    75% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #424549;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    color: #f2f2f2;
+}
+
+h1 {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 0.4em;
+}
+
+#topnav {
+    background-color: rgb(51, 51, 51);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#navbarBackground {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 1.2em;
+    width: 100%;
+    max-width: 100%;
+    background-color: rgba(25, 25, 25, 0.4);
+    padding: 1.2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+#topnav a {
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 1.9em;
+}
+
+#topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#navbarLines {
+    width: 3em;
+    align-items: center;
+    flex-grow: 0;
+}
+
+#navbarLines:hover {
+    animation: nlh 2s ease infinite;
+}
+
+.navA {
+    padding: 1%;
+}
+
+/* ABOVE IS NAVBAR */
+main {
+    margin-top: 5%;
+    padding: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+#postCredit {
+    font-size: 0.5em;
+    align-self: flex-end;
+}
+
+#comments {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+comment {
+    display: flex;
+    flex-direction: column;
+}
+
+comment .name {
+    font-size: 1em;
+}
+
+comment .content {
+    font-size: 1.2em;
+}
+
+.deleteComment {
+    width: 3em;
+}

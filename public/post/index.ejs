@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <!-- YOU CAN CHANGE the  <> BUT ANYTHING ON <%= %> PLS DONT CHANG -->
+    <head>
+        <title><%= title %></title>
+        <script defer src="/post/script.js"></script>
+        <link href="/post/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="navbarBackground">
+            <img src="/_img/list.svg" alt="loading" id="navbarLines" />
+            <div id="topnav">
+                <a class="navA" href="#home">Home</a>
+                <a class="navA" href="#about">About</a>
+                <%- edit %>
+            </div>
+        </div>
+        <main>
+            <h1>
+                <div><%= title %></div>
+                <div id="postCredit">by <%= username %></div>
+            </h1>
+            <p><%- content %></p>
+
+            <form action="/comment/<%= postId %>/<%= userId %>" method="POST">
+                <label for="content">Content:</label><br />
+                <textarea
+                    id="content"
+                    name="content"
+                    rows="4"
+                    cols="50"
+                    required
+                ></textarea
+                ><br /><br />
+
+                <input type="submit" value="Comment" />
+            </form>
+            <% if (comments.length !== 0) { %>
+            <div id="comments">
+                <% for (const comment of comments) { %> <% let commentId =
+                comment["_id"].toString() %>
+                <comment>
+                    <div class="name">
+                        <%= comment.author %> <% if (userId == comment.author) {
+                        %>
+                        <img
+                            src="/_img/delete.svg"
+                            alt="loading"
+                            class="deleteComment"
+                            data-userId="<%= userId %>"
+                            data-postId="<%= postId %>"
+                            data-commentId="<%= commentId %>"
+                        />
+                        <!-- Its a class because it could be multiple comments -->
+                        <% } %>
+                    </div>
+                    <div class="content"><%= comment.content %></div>
+                </comment>
+                <% } %>
+            </div>
+            <% } %>
+        </main>
+    </body>
+</html>

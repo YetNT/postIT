@@ -25,7 +25,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "public", "_ejs"));
+app.set("views", path.join(__dirname, "public"));
 
 mongoose
     .connect(process.env.MONGO, {
@@ -47,6 +47,8 @@ app.get("/post/create", validateSession, create.get);
 app.post("/create", create.post);
 
 app.get("/post/:id", posts.get);
+app.post("/comment/:post/:user", posts.newComment);
+app.delete("/comment/:post/:user/:comment", posts.deleteComment);
 
 app.get("/signup", signup.get);
 app.post("/signup", signup.post);
