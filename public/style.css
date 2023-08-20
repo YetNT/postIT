@@ -41,10 +41,6 @@ h1 {
     color: white;
 }
 
-main h1 {
-    text-align: center;
-}
-
 #topnav {
     background-color: rgb(51, 51, 51);
     flex-grow: 1;
@@ -94,5 +90,5 @@ main h1 {
 }
 
 main {
-    margin-top: 20%;
+    margin-top: 10%;
 }
