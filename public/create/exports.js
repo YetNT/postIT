@@ -12,7 +12,7 @@ const post = async (req, res) => {
         const title = req.body.title;
         const content = req.body.content;
         const option = req.body.option; // post type options.
-        const user = JSON.parse(req.cookies.user["_id"]);
+        const user = JSON.parse(req.cookies.user)["_doc"];
         const id = generateSlug(title);
         let query = { id: id };
 
@@ -28,7 +28,6 @@ const post = async (req, res) => {
 
         await post.save();
 
-        // Redirect to the newly created post's page (assuming blog has an "_id" field)
         res.redirect(path.join(`/post/${post.id}`));
     } catch (error) {
         console.error(error);
