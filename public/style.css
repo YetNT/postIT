@@ -34,20 +34,20 @@ html {
     height: 100%;
     background-color: #424549;
     font-family: Tahoma, Verdana, Segoe, sans-serif;
+    color: #f2f2f2;
 }
 
 h1 {
     color: white;
 }
 
-.name {
+main h1 {
     text-align: center;
 }
 
 #topnav {
     background-color: rgb(51, 51, 51);
     flex-grow: 1;
-    padding: 1%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -60,7 +60,7 @@ h1 {
     width: 100%;
     max-width: 100%;
     background-color: rgba(25, 25, 25, 0.4);
-    padding: 2.3%;
+    padding: 1.2%;
     display: flex;
     flex-direction: row;
     align-items: center;
