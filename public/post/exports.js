@@ -25,8 +25,9 @@ const get = async (req, res) => {
 
     try {
         const post = await Post.findOne({ id: id });
+        let JSONparsed = JSON.parse(userCookie)
         let user = await User.findOne({
-            id: JSON.parse(userCookie)["_doc"].id,
+            id: JSONparsed["_doc"].id,
         });
 
         if (!post) return res.status(404).send("Post not found");
