@@ -120,6 +120,11 @@ comment {
 
 comment .name {
     font-size: 1em;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.3em;
+    justify-content: flex-end;
 }
 
 comment .content {
@@ -127,5 +132,6 @@ comment .content {
 }
 
 .deleteComment {
-    width: 3em;
+    width: 1.5em;
+    cursor: pointer;
 }

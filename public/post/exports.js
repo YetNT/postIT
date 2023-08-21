@@ -25,7 +25,7 @@ const get = async (req, res) => {
 
     try {
         const post = await Post.findOne({ id: id });
-        let JSONparsed = JSON.parse(userCookie)
+        let JSONparsed = JSON.parse(userCookie);
         let user = await User.findOne({
             id: JSONparsed["_doc"].id,
         });
@@ -70,28 +70,35 @@ const newComment = async (req, res) => {
     }
 };
 
-const deleteComment = async (req, res) => {
+const deleteOrEditComment = async (req, res) => {
     const commentId = req.params.comment;
     const userId = req.params.user;
     const postId = req.params.post;
+    const newContent = req.body.newContent;
+
     try {
         let post = await Post.findOne({ id: postId });
         let user = await User.findOne({ id: userId });
 
-        if (!post || !user)
-            return res.status(400).send("uhm wtf post/user not found?");
+        if (!post || !user) return res.status(400).send("Post/user not found.");
 
         const comment = post.comments.find(
             (comment) => comment._id.toString() === commentId
         );
 
-        if (!comment) return res.status(400).send("Comment not found."); // code here so the below code doesnt fail.
+        if (!comment) return res.status(400).send("Comment not found.");
 
-        post.comments = post.comments.filter(
-            (comment) => comment._id.toString() !== commentId
-        );
-
-        await post.save();
+        if (newContent !== undefined) {
+            // Editing comment
+            comment.content = newContent;
+            await post.save();
+        } else {
+            // Deleting comment
+            post.comments = post.comments.filter(
+                (comment) => comment._id.toString() !== commentId
+            );
+            await post.save();
+        }
 
         res.redirect(`/post/${postId}`);
     } catch (error) {
@@ -100,4 +107,4 @@ const deleteComment = async (req, res) => {
     }
 };
 
-module.exports = { get, newComment, deleteComment };
+module.exports = { get, newComment, deleteOrEditComment };
