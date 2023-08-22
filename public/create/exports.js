@@ -3,7 +3,7 @@ const Post = require("../../postSchema");
 const { generateSlug, PostMode } = require("../../util");
 
 const get = (req, res) => {
-    return res.status(200).sendFile(path.join(__dirname + "/index.html"));
+    return res.status(200).sendFile(path.join(__dirname + "/page.html"));
 };
 
 // Route to handle the form submission and create a new post

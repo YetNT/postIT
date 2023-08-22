@@ -1,25 +1,6 @@
 const User = require("../../userSchema");
 const path = require("path");
-const { generateSlug } = require("../../util");
-
-function generateToken() {
-    // Get the current date in milliseconds
-    const currentDate = new Date();
-    const currentDateMs = currentDate.getTime();
-
-    // Calculate milliseconds in 40 days
-    const daysToAdd = 40;
-    const millisecondsInADay = 24 * 60 * 60 * 1000;
-    const daysInMilliseconds = daysToAdd * millisecondsInADay;
-
-    // Calculate the future date in milliseconds
-    const futureDateMs = currentDateMs + daysInMilliseconds;
-
-    // Create a new Date object with the future date
-    const futureDate = new Date(futureDateMs);
-
-    return futureDate.setMilliseconds(0);
-}
+const { generateSlug, generateToken } = require("../../util");
 
 // Route to handle the form submission and create a new post
 const post = async (req, res) => {
@@ -55,7 +36,7 @@ const post = async (req, res) => {
 };
 
 const get = (req, res) => {
-    res.sendFile(path.join(__dirname + "/index.html"));
+    res.sendFile(path.join(__dirname + "/page.html"));
 };
 
 module.exports = { post, get };

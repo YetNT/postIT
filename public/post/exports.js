@@ -8,7 +8,7 @@ function render(req, res, post, user) {
         edit = `<a class="navA" href="/post/${post.id}/edit">Edit Post</a>`;
     }
 
-    res.render("post/index", {
+    res.render("post/page", {
         title: post.title,
         content: post.content.replace(/\n/g, "<br>"),
         edit: edit,
@@ -25,7 +25,7 @@ const get = async (req, res) => {
 
     try {
         const post = await Post.findOne({ id: id });
-        let JSONparsed = JSON.parse(userCookie);
+        let JSONparsed = userCookie !== undefined ? JSON.parse(userCookie) : {"_doc":{id:"invalid"}};
         let user = await User.findOne({
             id: JSONparsed["_doc"].id,
         });
