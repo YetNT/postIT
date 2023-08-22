@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const deleteCommentLinks = document.querySelectorAll(".deleteComment");
+const editCommentLinks = document.querySelectorAll(".editComment");
 
 // Add a click event listener to each link
 deleteCommentLinks.forEach((link) => {
@@ -49,5 +50,38 @@ deleteCommentLinks.forEach((link) => {
         } catch (error) {
             console.error(error);
         }
+    });
+});
+
+// Assuming you have a form with the id "editForm" and an input field with the id "newContentInput"
+editCommentLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+        let display = 0;
+        const commentId = link.getAttribute("data-commentId");
+        const userId = link.getAttribute("data-userId");
+        const postId = link.getAttribute("data-postId");
+        const form = document.getElementById(commentId);
+
+        // Show the hidden form
+        form.style.display = display == 0 ? "block" : "none";
+        display = display == 0 ? 1 : 0;
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const newContent = form.querySelector(".newContent").value;
+
+            try {
+                const response = await fetch(
+                    `/comment/${postId}/${userId}/${commentId}/${newContent}`,
+                    {
+                        method: "PATCH",
+                    }
+                );
+
+                window.location.reload();
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
+        });
     });
 });

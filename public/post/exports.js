@@ -25,7 +25,10 @@ const get = async (req, res) => {
 
     try {
         const post = await Post.findOne({ id: id });
-        let JSONparsed = userCookie !== undefined ? JSON.parse(userCookie) : {"_doc":{id:"invalid"}};
+        let JSONparsed =
+            userCookie !== undefined
+                ? JSON.parse(userCookie)
+                : { _doc: { id: "invalid" } };
         let user = await User.findOne({
             id: JSONparsed["_doc"].id,
         });
@@ -74,32 +77,34 @@ const deleteOrEditComment = async (req, res) => {
     const commentId = req.params.comment;
     const userId = req.params.user;
     const postId = req.params.post;
-    const newContent = req.body.newContent;
+    const newContent = req.params.newContent;
 
     try {
         let post = await Post.findOne({ id: postId });
         let user = await User.findOne({ id: userId });
 
-        if (!post || !user) return res.status(400).send("Post/user not found.");
+        if (!post || !user) return res.status(404).send("Post/user not found.");
 
         const comment = post.comments.find(
             (comment) => comment._id.toString() === commentId
         );
 
-        if (!comment) return res.status(400).send("Comment not found.");
+        if (!comment) return res.status(404).send("Comment not found.");
+
+        if (comment.author !== userId)
+            return res.status(400).send("This aint your comment bro.");
 
         if (newContent !== undefined) {
             // Editing comment
             comment.content = newContent;
-            await post.save();
         } else {
             // Deleting comment
             post.comments = post.comments.filter(
                 (comment) => comment._id.toString() !== commentId
             );
-            await post.save();
         }
 
+        await post.save();
         res.redirect(`/post/${postId}`);
     } catch (error) {
         console.log(error);
