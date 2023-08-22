@@ -13,6 +13,24 @@ function generateSlug(title) {
         .replace(/\s+/g, "-") // Replace spaces with dashes
         .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
 }
+function generateToken() {
+    // Get the current date in milliseconds
+    const currentDate = new Date();
+    const currentDateMs = currentDate.getTime();
+
+    // Calculate milliseconds in 40 days
+    const daysToAdd = 40;
+    const millisecondsInADay = 24 * 60 * 60 * 1000;
+    const daysInMilliseconds = daysToAdd * millisecondsInADay;
+
+    // Calculate the future date in milliseconds
+    const futureDateMs = currentDateMs + daysInMilliseconds;
+
+    // Create a new Date object with the future date
+    const futureDate = new Date(futureDateMs);
+
+    return futureDate.setMilliseconds(0);
+}
 
 const PostMode = Object.freeze({
     dev: 0,
@@ -27,4 +45,5 @@ module.exports = {
     verifySessionToken,
     PostMode,
     generateSlug,
+    generateToken,
 };

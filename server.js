@@ -10,6 +10,8 @@ const ejs = require("ejs");
 const port = 3000;
 const cookieParser = require("cookie-parser");
 const app = express();
+
+const signout = require("./public/signout/exports.js");
 const validateSession = require("./public/_auth/isSignedIn");
 
 const create = require("./public/create/exports");
@@ -43,16 +45,22 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, `index.html`));
 });
 
-app.get("/post/create", validateSession, create.get);
+app.get("/create", validateSession, create.get);
 app.post("/create", create.post);
 
 app.get("/post/:id", posts.get);
 app.post("/comment/:post/:user", posts.newComment);
-app.delete("/comment/:post/:user/:comment", posts.deleteComment);
+app.delete("/comment/:post/:user/:comment", posts.deleteOrEditComment);
+app.patch(
+    "/comment/:post/:user/:comment/:newContent",
+    posts.deleteOrEditComment
+);
 
 app.get("/signup", signup.get);
 app.post("/signup", signup.post);
 app.get("/signin", signin.get);
+app.post("/signin", signin.post);
+app.get("/signout", signout);
 
 app.use((req, res) => {
     res.status(404).sendFile(
