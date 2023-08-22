@@ -2,33 +2,43 @@
 <html>
     <head>
         <title>postIT - signup</title>
+        <link href="/common.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>Sign up!</h1>
-        <form action="/signup" method="POST">
-            <label for="username">Username:</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            /><br /><br />
-            <div id="usernameError" style="color: red"></div>
+        <div id="navbarBackground">
+            <img src="/_img/list.svg" alt="loading" id="navbarLines" />
+            <div id="topnav">
+                <a class="navA" href="/">Home</a>
+                <a class="navA" href="/signin">Signin</a>
+            </div>
+        </div>
+        <main>
+            <h1>Sign up!</h1>
+            <form action="/signup" method="POST">
+                <label for="username">Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                /><br /><br />
+                <div id="usernameError" style="color: red"></div>
 
-            <label for="password">Password:</label>
-            <input
-                type="text"
-                id="password"
-                name="password"
-                required
-            /><br /><br />
-            ><br /><br />
+                <label for="password">Password:</label>
+                <input
+                    type="text"
+                    id="password"
+                    name="password"
+                    required
+                /><br /><br />
+                ><br /><br />
 
-            <div id="passwordError" style="color: red"></div>
-            <input type="submit" value="Create Post" />
-        </form>
+                <div id="passwordError" style="color: red"></div>
+                <input type="submit" value="Create Post" />
+            </form>
+        </main>
 
-        <script src="signup/script.js"></script>
+        <script src="/script.js"></script>
         <!-- Give the exact link like auth/signup/script or else it will go to default.-->
     </body>
 </html>

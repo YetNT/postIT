@@ -2,38 +2,54 @@
 <html>
     <head>
         <title>Create New Post</title>
+        <link href="/common.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>Create New Post</h1>
-        <form action="/create" method="POST">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required /><br /><br />
+        <div id="navbarBackground">
+            <img src="/_img/list.svg" alt="loading" id="navbarLines" />
+            <div id="topnav">
+                <a class="navA" href="/">Home</a>
+                <a class="navA" href="/about">About</a>
+            </div>
+        </div>
+        <main>
+            <h1>Create New Post</h1>
+            <form action="/create" method="POST">
+                <label for="title">Title:</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                /><br /><br />
 
-            <label for="content">Content:</label><br />
-            <textarea
-                id="content"
-                name="content"
-                rows="4"
-                cols="50"
-                required
-            ></textarea
-            ><br /><br />
-            <label>
-                <input type="radio" name="option" value="public" /> Public post
-            </label>
-            <br />
-            <label>
-                <input type="radio" name="option" value="linkPrivate" /> Private
-                post (Anybody with link can view.)
-            </label>
-            <br />
-            <label>
-                <input type="radio" name="option" value="authorPrivate" />
-                Private post (Only creator can view.)
-            </label>
-            <br />
+                <label for="content">Content:</label><br />
+                <textarea
+                    id="content"
+                    name="content"
+                    rows="4"
+                    cols="50"
+                    required
+                ></textarea
+                ><br /><br />
+                <label>
+                    <input type="radio" name="option" value="public" /> Public
+                    post
+                </label>
+                <br />
+                <label>
+                    <input type="radio" name="option" value="linkPrivate" />
+                    Private post (Anybody with link can view.)
+                </label>
+                <br />
+                <label>
+                    <input type="radio" name="option" value="authorPrivate" />
+                    Private post (Only creator can view.)
+                </label>
+                <br />
 
-            <input type="submit" value="Create Post" />
-        </form>
+                <input type="submit" value="Create Post" />
+            </form>
+        </main>
     </body>
 </html>

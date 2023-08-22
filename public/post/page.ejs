@@ -4,6 +4,7 @@
     <head>
         <title><%= title %></title>
         <script defer src="/post/script.js"></script>
+        <link href="/common.css" rel="stylesheet" type="text/css" />
         <link href="/post/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
@@ -39,24 +40,50 @@
             <h1>Comments:</h1>
             <div id="comments">
                 <% for (const comment of comments) { %> <% let commentId =
-                comment["_id"].toString() %>
+                comment["_id"].toString()%>
                 <comment>
-                    <div class="name">
-                        <%= comment.author %> <% if (userId == comment.author) {
-                        %>
-                        <img
-                            title="Delete comment"
-                            src="/_img/delete.svg"
-                            alt="loading"
-                            class="deleteComment"
-                            data-userId="<%= userId %>"
-                            data-postId="<%= postId %>"
-                            data-commentId="<%= commentId %>"
-                        />
-                        <!-- Its a class because it could be multiple comments -->
-                        <% } %>
-                    </div>
-                    <div class="content"><%= comment.content %></div>
+                    <commentBody>
+                        <div class="name">
+                            <%= comment.author %> <% if (userId ==
+                            comment.author) { %>
+                            <img
+                                title="Delete comment"
+                                src="/_img/delete.svg"
+                                alt="loading"
+                                class="icon deleteComment"
+                                data-userId="<%= userId %>"
+                                data-postId="<%= postId %>"
+                                data-commentId="<%= commentId %>"
+                            />
+                            <img
+                                title="Edit comment"
+                                src="/_img/pencil.svg"
+                                alt="loading"
+                                class="icon editComment"
+                                data-userId="<%= userId %>"
+                                data-postId="<%= postId %>"
+                                data-commentId="<%= commentId %>"
+                            />
+                            <!-- Its a class because it could be multiple comments -->
+                            <% } %>
+                        </div>
+                        <div class="content"><%= comment.content %></div>
+                    </commentBody>
+                    <% if (userId == comment.author) { %>
+                    <form id="<%= commentId %>" class="editForm" method="POST">
+                        <label for="username">New content:</label>
+                        <textarea
+                            id="newContent"
+                            class="newContent"
+                            name="newContent"
+                            rows="4"
+                            cols="30"
+                            required
+                        ></textarea
+                        ><br />
+                        <input type="submit" value="Edit Comment" />
+                    </form>
+                    <% } %>
                 </comment>
                 <br />
                 <% } %>

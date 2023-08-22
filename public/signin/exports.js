@@ -1,6 +1,6 @@
 const User = require("../../userSchema");
 const { generateSlug, generateToken } = require("../../util");
-const path = require("path")
+const path = require("path");
 
 const get = (req, res) => {
     res.sendFile(path.join(__dirname + "/page.html"));
@@ -27,6 +27,7 @@ const post = async (req, res) => {
         }
 
         user.sessionToken = sessiontoken;
+        user.save();
 
         // Successful authentication
         let { sessionToken, ...userData } = user;
