@@ -92,3 +92,15 @@ h1 {
 main {
     margin-top: 10%;
 }
+
+@media only screen and (max-width: 600px) {
+    #topnav a {
+        font-size: 1.2em;
+    }
+    #navbarLines {
+        width: 2em;
+    }
+    #navbarBackground {
+        height: 1.5em;
+    }
+}
