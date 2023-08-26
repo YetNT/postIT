@@ -1,6 +1,7 @@
 const Post = require("../../postSchema");
 const User = require("../../userSchema");
 const { PostMode } = require("../../util");
+var url = require("url");
 
 function render(req, res, post, user) {
     let edit = "";
@@ -16,6 +17,12 @@ function render(req, res, post, user) {
         postId: post.id,
         userId: user.id,
         comments: post.comments,
+        description: post.content,
+        link: url.format({
+            protocol: req.protocol,
+            host: req.get("host"),
+            pathname: `${req.originalUrl}`,
+        }),
     });
 }
 
