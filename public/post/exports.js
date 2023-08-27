@@ -13,7 +13,7 @@ function render(req, res, post, user) {
         title: post.title,
         content: post.content.replace(/\n/g, "<br>"),
         edit: edit,
-        username: user.username,
+        username: post.authorName,
         postId: post.id,
         userId: user.id,
         comments: post.comments,

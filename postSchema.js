@@ -18,6 +18,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    authorName: {
+        type: String,
+        required: true,
+    },
     mode: {
         /**
          * Mode 0 = Dev post

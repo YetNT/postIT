@@ -24,6 +24,7 @@ const post = async (req, res) => {
             id: id,
             authorId: user.id,
             mode: PostMode[option],
+            authorName: user.username
         });
 
         await post.save();
