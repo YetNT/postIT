@@ -52,7 +52,7 @@ h1 {
     position: fixed;
     left: 0;
     top: 0;
-    height: clamp(1.9em, 1.5em, 1.2em);
+    height: clamp(1.9em, 1.3em, 1.2em);
     width: 100%;
     max-width: 100%;
     background-color: rgba(25, 25, 25, 0.4);
