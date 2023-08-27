@@ -52,7 +52,7 @@ h1 {
     position: fixed;
     left: 0;
     top: 0;
-    height: 1.2em;
+    height: clamp(1.9em, 1.5em, 1.2em);
     width: 100%;
     max-width: 100%;
     background-color: rgba(25, 25, 25, 0.4);
@@ -67,7 +67,7 @@ h1 {
 #topnav a {
     color: #f2f2f2;
     text-decoration: none;
-    font-size: 1.9em;
+    font-size: clamp(1.9em, 1.5em, 1.2em);
 }
 
 #topnav a:hover {
@@ -76,7 +76,7 @@ h1 {
 }
 
 #navbarLines {
-    width: 3em;
+    width: clamp(3em, 4em, 5em);
     align-items: center;
     flex-grow: 0;
 }
@@ -90,20 +90,6 @@ h1 {
 }
 
 main {
-    margin-top: 10%;
-}
-
-@media only screen and (max-width: 600px) {
-    #topnav a {
-        font-size: 1.2em;
-    }
-    #navbarLines {
-        width: 4em;
-    }
-    #navbarBackground {
-        height: 3.5em;
-    }
-    main {
-    margin-top: 30%;
-}
+    margin-top: clamp(2vh, 15vh, 80vh);
+    padding: clamp(4em, 4.5em, 6em);
 }
