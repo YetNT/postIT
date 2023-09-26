@@ -1,3 +1,18 @@
+const bcrypt = require("bcrypt");
+
+// Function to generate a salt and hash the password
+async function encryptPassword(password) {
+    const saltRounds = 10; // Number of salt rounds for bcrypt to use
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return { encrypted: hash, salt: salt };
+}
+
+// Function to compare a password with its encrypted counterpart
+async function comparePassword(password, encryptedPassword) {
+    return await bcrypt.compare(password, encryptedPassword);
+}
+
 function verifySessionToken(cookieSessionToken, databaseSessionToken) {
     return databaseSessionToken.getTime() !==
         new Date(parseInt(cookieSessionToken)).getTime()
@@ -46,4 +61,6 @@ module.exports = {
     PostMode,
     generateSlug,
     generateToken,
+    encryptPassword,
+    comparePassword,
 };

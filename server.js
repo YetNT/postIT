@@ -18,7 +18,8 @@ const create = require("./public/create/exports");
 const posts = require("./public/post/exports");
 const signup = require("./public/signup/exports");
 const signin = require("./public/signin/exports");
-const tos = require("./public/tos/exports")
+const tos = require("./public/tos/exports");
+const api = require("./api");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,13 +57,15 @@ app.patch(
     "/comment/:post/:user/:comment/:newContent",
     posts.deleteOrEditComment
 );
-app.get("/tos", tos)
-
+app.get("/tos", tos);
 app.get("/signup", signup.get);
 app.post("/signup", signup.post);
 app.get("/signin", signin.get);
 app.post("/signin", signin.post);
 app.get("/signout", signout);
+
+app.post("/api/userExists", api.userExists);
+app.post("/api/correctPassword", api.correctPassword);
 
 app.use((req, res) => {
     res.status(404).sendFile(
