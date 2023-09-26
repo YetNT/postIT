@@ -1,22 +1,27 @@
 const User = require("../../userSchema");
 const path = require("path");
-const { generateSlug, generateToken } = require("../../util");
+const {
+    generateSlug,
+    generateToken,
+    encryptPassword,
+    comparePassword,
+} = require("../../util");
 
 // Route to handle the form submission and create a new post
 const post = async (req, res) => {
     try {
         const username = req.body.username;
-        const password = req.body.password;
+        const pass = req.body.password;
         const id = generateSlug(username);
         let query = { id: id };
         const sessiontoken = generateToken();
 
+        const password = await encryptPassword(pass);
         let existing = await User.findOne(query);
-        if (existing) return res.status(403).send("Alredy exists.");
         let userObject = {
             id: id,
             username: username,
-            password: password,
+            password,
             sessionToken: sessiontoken,
         };
         let user = new User(userObject);

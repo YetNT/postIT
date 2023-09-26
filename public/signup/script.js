@@ -1,3 +1,12 @@
+function generateSlug(title) {
+    // Convert to lowercase and replace non-alphanumeric characters and spaces with a dash
+    return title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "") // Replace non-word characters (excluding spaces and dashes)
+        .replace(/\s+/g, "-") // Replace spaces with dashes
+        .replace(/-+/g, "-"); // Replace consecutive dashes with a single dash
+}
+
 function hasSpecialCharacters(input) {
     const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     return specialCharacters.test(input);
@@ -27,15 +36,30 @@ function usernameError(input) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Find the form element
     const form = document.querySelector("form");
 
-    // Listen for the form's submit event
-    form.addEventListener("submit", function (event) {
+    form.addEventListener("submit", async function (event) {
         event.preventDefault();
         const password = document.getElementById("password").value;
         const username = document.getElementById("username").value;
+        const id = generateSlug(username);
 
+        const userExistsResponse = await fetch("/api/userExists", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id }),
+        });
+
+        const userExistsData = await userExistsResponse.json();
+        console.log(userExistsData);
+
+        if (userExistsData.exists) {
+            return usernameError(
+                "User with username already exists! (try another username then change it later.)"
+            );
+        }
         if (hasSpecialCharacters(username))
             return usernameError("Username cannot contain special characters.");
         if (username.length < 4) return usernameError("Username is too short.");
@@ -55,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Password does not contain special characters!"
             );
         if (password.length < 5) return passwordError("Password is too short!");
+
         form.submit();
     });
 });
