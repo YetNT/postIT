@@ -1,18 +1,4 @@
 /* animations */
-@keyframes nlh {
-    0% {
-        rotate: -360deg;
-    }
-    50% {
-        rotate: -120deg;
-    }
-    75% {
-        rotate: -280deg;
-    }
-    100% {
-        rotate: -360deg;
-    }
-}
 
 @keyframes hideNav {
     0% {
@@ -79,10 +65,13 @@ h1 {
     width: clamp(3em, 4em, 5em);
     align-items: center;
     flex-grow: 0;
+    transition: width 2s, filter 2s;
+    filter: invert(50%) hue-rotate(180deg);
 }
 
 #navbarLines:hover {
-    animation: nlh 2s ease infinite;
+    width: 5em;
+    filter: invert(0%);
 }
 
 .navA {
