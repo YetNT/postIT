@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>postIT - signin</title>
-         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="/common.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
@@ -30,15 +30,18 @@
                     id="password"
                     name="password"
                     required
-                /><br /><br />
+                /><br />
+
+                <div id="passwordError" style="color: red"></div>
+                <br />
                 ><br /><br />
 
                 <div id="error" style="color: red"></div>
-                <input type="submit" value="Create Post" />
+                <input type="submit" value="Sign in" />
             </form>
         </main>
 
-        <script src="/script.js"></script>
+        <script src="./script.js"></script>
         <!-- Give the exact link like auth/signin/script or else it will go to default.-->
     </body>
 </html>

@@ -17,15 +17,6 @@ const post = async (req, res) => {
         // Find the user by their username
         let user = await User.findOne({ id: id });
 
-        if (!user) {
-            return res.status(401).send("User not found.");
-        }
-
-        // Check if the provided password matches the user's password
-        if (user.password !== password) {
-            return res.status(401).send("Invalid password.");
-        }
-
         user.sessionToken = sessiontoken;
         user.save();
 
