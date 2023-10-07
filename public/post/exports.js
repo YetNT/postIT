@@ -6,7 +6,7 @@ var url = require("url");
 function render(req, res, post, user) {
     let edit = "";
     if (post.authorId == user.id) {
-        edit = `<a class="navA" href="/post/${post.id}/edit">Edit Post</a>`;
+        edit = `<div class="navA" onclick="myFunction()">Edit Post</div>`;
     }
 
     res.render("post/page", {
@@ -80,6 +80,24 @@ const newComment = async (req, res) => {
     }
 };
 
+const editPost = async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const newContent = req.body.newContent;
+
+        let post = await Post.findOne({ id: postId });
+
+        if (!post) return res.status(404).send("post not found?");
+
+        post.content = newContent;
+        await post.save();
+        res.status(200);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error. \n ");
+    }
+};
+
 const deleteOrEditComment = async (req, res) => {
     const commentId = req.params.comment;
     const userId = req.params.user;
@@ -104,6 +122,7 @@ const deleteOrEditComment = async (req, res) => {
         if (newContent !== undefined) {
             // Editing comment
             comment.content = newContent;
+            comment.edited = true;
         } else {
             // Deleting comment
             post.comments = post.comments.filter(
@@ -119,4 +138,4 @@ const deleteOrEditComment = async (req, res) => {
     }
 };
 
-module.exports = { get, newComment, deleteOrEditComment };
+module.exports = { get, newComment, deleteOrEditComment, editPost };

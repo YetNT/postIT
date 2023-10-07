@@ -4,7 +4,7 @@
     <head>
         <title><%= title %></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script defer src="/post/script.js"></script>
+        <script defer src="./script.js"></script>
         <link href="/common.css" rel="stylesheet" type="text/css" />
         <link href="./style.css" rel="stylesheet" type="text/css" />
         <meta content="<%= title %> by <%= username %>" property="og:title" />
@@ -28,7 +28,7 @@
                 <div><%= title %></div>
                 <div id="postCredit">by <%= username %></div>
             </h1>
-            <p><%- content %></p>
+            <p id="content"><%- content %></p>
 
             <form action="/comment/<%= postId %>/<%= userId %>" method="POST">
                 <label for="content">New Comment:</label><br />
@@ -74,7 +74,14 @@
                             <!-- Its a class because it could be multiple comments -->
                             <% } %>
                         </div>
-                        <div class="content"><%= comment.content %></div>
+                        <div class="content">
+                            <% if (comment.edited == true) { %><img
+                                title="Comment has been edited by the author"
+                                src="/_img/pencil.svg"
+                                alt="loading"
+                                class="editedComment"
+                            /><% } %> <%= comment.content %>
+                        </div>
                     </commentBody>
                     <% if (userId == comment.author) { %>
                     <form id="<%= commentId %>" class="editForm" method="POST">
@@ -96,6 +103,7 @@
                 <% } %>
             </div>
             <% } %>
+            <input type="hidden" id="postId" value="<%= postId %>" />
         </main>
     </body>
 </html>

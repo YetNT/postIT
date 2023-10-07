@@ -43,6 +43,12 @@ commentBody .content {
     width: 1.5em;
     cursor: pointer;
 }
+
+.editedComment {
+    width: 0.9em;
+    filter: invert(1);
+}
+
 .editForm {
     display: none;
 }

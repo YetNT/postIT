@@ -53,6 +53,28 @@ deleteCommentLinks.forEach((link) => {
     });
 });
 
+async function myFunction() {
+    const postId = document.getElementById("postId").value;
+    const embedContent = document.getElementById("content");
+    let newContent;
+    let prompt = prompt("Add new content text.", "i like balls");
+    if (prompt == null || prompt == "") {
+        newContent = undefined;
+    } else {
+        newContent = prompt;
+    }
+    const request = await fetch(`/post/${postId}/edit`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: postId, newContent }),
+    });
+    const response = await request.json();
+
+    if (response.ok) return embedContent.innerText(newContent);
+}
+
 // Assuming you have a form with the id "editForm" and an input field with the id "newContentInput"
 editCommentLinks.forEach((link) => {
     link.addEventListener("click", () => {

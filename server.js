@@ -52,6 +52,7 @@ app.get("/create", validateSession, create.get);
 app.post("/create", create.post);
 
 app.get("/post/:id", posts.get);
+app.patch("/post/:id/edit", posts.editPost);
 app.post("/comment/:post/:user", posts.newComment);
 app.delete("/comment/:post/:user/:comment", posts.deleteOrEditComment);
 app.patch(

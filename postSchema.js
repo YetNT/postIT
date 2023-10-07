@@ -39,6 +39,10 @@ const postSchema = new mongoose.Schema({
             author: String,
             content: String,
             username: String,
+            edited: {
+                type: Boolean,
+                default: false,
+            },
         },
     ],
     created: {

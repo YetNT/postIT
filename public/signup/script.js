@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const userExistsData = await userExistsResponse.json();
-        console.log(userExistsData);
 
         if (userExistsData.exists) {
             return usernameError("User with username already exists!");
