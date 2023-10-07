@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 const signout = require("./public/signout/exports.js");
-const validateSession = require("./public/_auth/isSignedIn");
+const {validateSession} = require("./public/_auth/isSignedIn");
 
 const create = require("./public/create/exports");
 const posts = require("./public/post/exports");

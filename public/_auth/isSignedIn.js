@@ -1,7 +1,10 @@
 const User = require("../../userSchema");
 const { verifySessionToken } = require("../../util");
 
-module.exports = async (req, res, next) => {
+/**
+ * validates if signed in when accessing a part of the site that needs it.
+ */
+const validateSession = async (req, res, next) => {
     const sessionToken = req.cookies.sessionToken;
     const userCookie = req.cookies.user;
     const parsedUserCookie =
@@ -49,3 +52,22 @@ module.exports = async (req, res, next) => {
 
     next();
 };
+
+/**
+ * Friendlier version to add/remove sign in/up buttons in ejs
+ */
+const validateSessionFriendly = async (req) => {
+    try {
+        const userCookies = req.cookies.user;
+        return {
+            output: !userCookies ? false : true,
+            userId: !userCookies
+                ? undefined
+                : JSON.parse(userCookies)["_doc"].id,
+        };
+    } catch (error) {
+        console.log("error");
+    }
+};
+
+module.exports = { validateSession, validateSessionFriendly };

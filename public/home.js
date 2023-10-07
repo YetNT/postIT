@@ -1,12 +1,16 @@
-function render(req, res) {
+const { validateSessionFriendly } = require("./_auth/isSignedIn");
+
+async function render(req, res) {
+    const signedIn = await validateSessionFriendly(req);
     res.render("home", {
-        ejs: "ejs works",
+        signedIn: signedIn.output,
+        userId: signedIn.userId,
     });
 }
 
 const get = async (req, res) => {
     try {
-        render(req, res);
+        await render(req, res);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");

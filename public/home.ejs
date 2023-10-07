@@ -13,7 +13,11 @@
             <img src="./_img/list.svg" alt="loading" id="navbarLines" />
             <div id="topnav">
                 <a class="navA" href="/create">New Post</a>
+                <% if (signedIn) { %>
+                <a class="navA" href="/user/<%=userId%>">Your Posts</a>
+                <% } else { %>
                 <a class="navA" href="/signin">Signin</a>
+                <% } %>
             </div>
         </div>
         <main>
