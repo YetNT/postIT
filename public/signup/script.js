@@ -56,9 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(userExistsData);
 
         if (userExistsData.exists) {
-            return usernameError(
-                "User with username already exists! (try another username then change it later.)"
-            );
+            return usernameError("User with username already exists!");
         }
         if (hasSpecialCharacters(username))
             return usernameError("Username cannot contain special characters.");
