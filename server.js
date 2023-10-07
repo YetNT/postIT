@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 const signout = require("./public/signout/exports.js");
-const {validateSession} = require("./public/_auth/isSignedIn");
+const { validateSession } = require("./public/_auth/isSignedIn");
 
 const create = require("./public/create/exports");
 const posts = require("./public/post/exports");
@@ -21,6 +21,7 @@ const signin = require("./public/signin/exports");
 const tos = require("./public/tos/exports");
 const api = require("./api");
 const home = require("./public/home");
+const user = require("./public/user/exports");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +47,7 @@ mongoose
 
 app.get("/", home.get);
 
+app.get("/user/:id", user.get);
 app.get("/create", validateSession, create.get);
 app.post("/create", create.post);
 

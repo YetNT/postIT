@@ -1,0 +1,9 @@
+posts {
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

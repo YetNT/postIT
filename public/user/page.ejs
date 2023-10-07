@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>postIT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script defer src="./script.js"></script>
+        <link href="/common.css" rel="stylesheet" type="text/css" />
+        <link href="./style.css" rel="stylesheet" type="text/css" />
+        <!-- This is the default, so no exact link is needed.-->
+    </head>
+    <body>
+        <div id="navbarBackground">
+            <img src="../_img/list.svg" alt="loading" id="navbarLines" />
+            <div id="topnav">
+                <a class="navA" href="/">Home</a>
+                <% if (!signedIn) { %>
+                <a class="navA" href="/signin">Signin</a>
+                <% } %>
+            </div>
+        </div>
+        <main>
+            <% if (!userExists) {%>
+            <h1>
+                There is no user with the userId: <%= givenUserId %>. Perhaps
+                you made a typo?
+            </h1>
+            <% } else { %>
+            <h1><%= who %></h1>
+            <posts>
+                <% for (let i = 0; i < userPosts.length; i++) {%> <% let post =
+                userPosts[i]; let link = links[i]%>
+                <div class="post">
+                    <h2>
+                        <a href="/post/<%= post.id %>" target="_blank"
+                            ><%= post.title %></a
+                        >
+                    </h2>
+                    <p class="content"><%= post.content %></p>
+                    <!-- Add more HTML here to display other post properties -->
+                </div>
+                <% }; %>
+            </posts>
+            <% } %>
+        </main>
+        <script src="/script.js"></script>
+    </body>
+</html>
