@@ -24,7 +24,9 @@ module.exports = async (req, res, next) => {
             );
     }
 
-    if (user.password !== parsedUserCookie["_doc"].password) {
+    if (
+        user.password.encrypted !== parsedUserCookie["_doc"].password.encrypted
+    ) {
         // password has been changed, so clear cookies and redirect to /signin.
         // Either the password has been changed or the cookie has been tampered with.
         const cookies = req.cookies;
