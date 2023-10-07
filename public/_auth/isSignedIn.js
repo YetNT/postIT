@@ -64,10 +64,29 @@ const validateSessionFriendly = async (req) => {
             userId: !userCookies
                 ? undefined
                 : JSON.parse(userCookies)["_doc"].id,
+            username: !userCookies
+                ? undefined
+                : JSON.parse(userCookies)["_doc"].username,
         };
     } catch (error) {
-        console.log("error");
+        console.log(error);
     }
 };
 
-module.exports = { validateSession, validateSessionFriendly };
+/**
+ * Check if user is author in user path
+ */
+const isAuthor = async (req, id) => {
+    try {
+        const { userId } = validateSessionFriendly(req);
+        if (!userId) {
+            return false;
+        } else {
+            return userId == id ? true : false;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports = { validateSession, validateSessionFriendly, isAuthor };
