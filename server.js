@@ -20,6 +20,7 @@ const signup = require("./public/signup/exports");
 const signin = require("./public/signin/exports");
 const tos = require("./public/tos/exports");
 const api = require("./api");
+const home = require("./public/home");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,9 +44,7 @@ mongoose
         console.error("Error connecting to MongoDB Atlas:", err);
     });
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, `index.html`));
-});
+app.get("/", home.get);
 
 app.get("/create", validateSession, create.get);
 app.post("/create", create.post);
