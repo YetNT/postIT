@@ -1,0 +1,19 @@
+h1,
+h2 {
+    text-align: center;
+}
+ol {
+    counter-reset: item;
+    font-size: 0.5cm;
+}
+strong {
+    padding-bottom: 0.5cm;
+}
+li {
+    display: block;
+    padding-bottom: 0.2cm;
+}
+li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+}
