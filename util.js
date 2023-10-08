@@ -56,9 +56,22 @@ const PostMode = Object.freeze({
     archived: 5,
 });
 
+const UserStatus = Object.freeze({
+    dev: 0,
+    mod: 1,
+    bot: 2,
+    company: 3,
+    sponsor: 4,
+    friend: 5,
+    normal: 6,
+    mute: 7,
+    banned: 8,
+});
+
 module.exports = {
     verifySessionToken,
     PostMode,
+    UserStatus,
     generateSlug,
     generateToken,
     encryptPassword,

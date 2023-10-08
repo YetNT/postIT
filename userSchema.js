@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { UserStatus } = require("./util");
 
 const userSchema = new mongoose.Schema({
     id: {
@@ -27,6 +28,10 @@ const userSchema = new mongoose.Schema({
     sessionToken: {
         type: Date,
         required: true,
+    },
+    status: {
+        type: Number,
+        default: UserStatus.normal,
     },
     profile: {
         joined: {

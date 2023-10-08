@@ -23,13 +23,13 @@ const get = async (req, res) => {
     try {
         const id = req.params.id;
         const user = await User.findOne({ id: id });
-        let isAuthor = await isAuthor(req, id);
+        const isPostsAuthor = await isAuthor(req, id);
 
         // Modify the query to exclude posts with mode 4 or 5
         const userPosts = await Post.find({
             authorId: id,
             mode: {
-                $nin: isAuthor
+                $nin: isPostsAuthor
                     ? []
                     : [
                           PostMode.authorPrivate,
