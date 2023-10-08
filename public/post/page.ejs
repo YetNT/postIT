@@ -31,6 +31,8 @@
             </h1>
             <p id="content"><%- content %></p>
 
+            <%- deletePostForm %>
+
             <form action="/comment/<%= postId %>/<%= userId %>" method="POST">
                 <label for="content">New Comment:</label><br />
                 <textarea

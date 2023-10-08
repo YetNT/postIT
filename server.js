@@ -52,6 +52,7 @@ app.get("/create", validateSession, create.get); // create a post
 app.post("/create", create.post); // create a post,  backend
 
 app.get("/post/:id", posts.get); // view a post
+app.post("/post/:id", posts.deletePost); // delete a post
 app.get("/post/:id/edit", posts.getEdit); // edit a post
 app.post("/post/:id/edit", posts.editPost); // edit a post, backend
 app.post("/comment/:post/:user", posts.newComment); // comment on a post, backend
