@@ -111,14 +111,25 @@ textarea {
     padding: 0.9em;
 }
 
-input[type="submit"] {
+input[type="submit"],
+button {
     width: fit-content;
     padding: 0.5em 1em;
     color: white;
+    background-color: var(--background-color);
+    border: 1px black solid;
+    border-radius: 2cm;
     transition: background-color 2s, color 2s;
 }
 
-input[type="submit"]:hover {
+#row {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+input[type="submit"]:hover,
+button:hover {
     background-color: rgb(218, 210, 210);
     color: var(--background-color);
     cursor: pointer;
