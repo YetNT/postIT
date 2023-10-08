@@ -1,0 +1,50 @@
+#title {
+    text-align: center;
+    font-size: 4em;
+}
+
+discover {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+discover * {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+}
+
+discover * * {
+    padding: 0.5em;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Display ellipses for overflow text */
+}
+
+post {
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis; /* Display ellipses for overflow text */
+    flex: 1;
+    align-items: baseline;
+    width: calc(100%);
+}
+
+post name,
+post content {
+    padding: 0.2em;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100%);
+}
+
+@media only screen and (max-width: 600px) {
+    discover * {
+        display: flex;
+        flex-direction: column;
+    }
+}
