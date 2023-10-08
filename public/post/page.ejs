@@ -33,6 +33,9 @@
 
             <%- deletePostForm %>
 
+            <br />
+            <h1>Comments:</h1>
+
             <form action="/comment/<%= postId %>/<%= userId %>" method="POST">
                 <label for="content">New Comment:</label><br />
                 <textarea
@@ -47,15 +50,18 @@
             </form>
             <br /><br />
             <% if (comments.length !== 0) { %>
-            <h1>Comments:</h1>
             <div id="comments">
                 <% for (const comment of comments) { %> <% let commentId =
                 comment["_id"].toString()%>
                 <comment>
                     <commentBody>
                         <div class="name">
-                            <%= comment.author %> <% if (userId ==
-                            comment.author) { %>
+                            <div
+                                title="Created <%= comment.time.created.toLocaleString() %>"
+                            >
+                                <%= comment.author %>
+                            </div>
+                            <% if (userId == comment.author) { %>
                             <img
                                 title="Delete comment"
                                 src="/_img/delete.svg"
@@ -79,7 +85,7 @@
                         </div>
                         <div class="content">
                             <% if (comment.edited == true) { %><img
-                                title="Comment has been edited by the author"
+                                title="Comment has been edited (<%= comment.time.edited.toLocaleString() %>) by the author"
                                 src="/_img/pencil.svg"
                                 alt="loading"
                                 class="editedComment"
