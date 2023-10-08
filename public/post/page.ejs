@@ -21,7 +21,6 @@
                 <a class="navA" href="/">Home</a>
                 <a class="navA" href="#about">About</a>
                 <a class="navA" href="/tos">ToS</a>
-                <%- edit %>
             </div>
         </div>
         <main>
@@ -30,8 +29,7 @@
                 <div id="postCredit">by <%= username %></div>
             </h1>
             <p id="content"><%- content %></p>
-
-            <%- deletePostForm %>
+            <div id="row"><%- edit %> <%- deletePostForm %></div>
 
             <br />
             <h1>Comments:</h1>

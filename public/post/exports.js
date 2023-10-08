@@ -8,7 +8,7 @@ function render(page, req, res, post, user) {
         deletePostForm,
         moderationStatus = "";
     if (post.authorId == user.id) {
-        edit = `<a class="navA" href="/post/${post.id}/edit">Edit Post</a>`;
+        edit = `<a href="/post/${post.id}/edit"><button>Edit Post</button></a>`;
         deletePostForm = `<form action="/post/${post.id}" method="POST"><input type="submit" value="Delete Post" /></form>`;
     }
 
@@ -164,6 +164,7 @@ const deleteOrEditComment = async (req, res) => {
             // Editing comment
             comment.content = newContent;
             comment.edited = true;
+            comment.time.edited = Date.now();
         } else {
             // Deleting comment
             post.comments = post.comments.filter(
