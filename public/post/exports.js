@@ -5,11 +5,19 @@ var url = require("url");
 
 function render(page, req, res, post, user) {
     let edit,
-        deletePostForm = "";
+        deletePostForm,
+        moderationStatus = "";
     if (post.authorId == user.id) {
         edit = `<a class="navA" href="/post/${post.id}/edit">Edit Post</a>`;
         deletePostForm = `<form action="/post/${post.id}" method="POST"><input type="submit" value="Delete Post" /></form>`;
     }
+
+    moderationStatus =
+        post.mode === PostMode.moderated
+            ? `[Post has been moderated]`
+            : post.mode === PostMode.archived
+            ? `[Archived Post]`
+            : "";
 
     res.render(`post/${page}`, {
         title: post.title,
@@ -21,6 +29,9 @@ function render(page, req, res, post, user) {
         comments: post.comments.reverse(),
         description: post.content,
         deletePostForm,
+        PostMode,
+        mode: post.mode,
+        moderationStatus,
         link: url.format({
             protocol: req.protocol,
             host: req.get("host"),

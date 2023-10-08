@@ -26,7 +26,7 @@
         </div>
         <main>
             <h1>
-                <div><%= title %></div>
+                <div><%= title %> <%= moderationStatus %></div>
                 <div id="postCredit">by <%= username %></div>
             </h1>
             <p id="content"><%- content %></p>
@@ -36,6 +36,8 @@
             <br />
             <h1>Comments:</h1>
 
+            <% if ( mode !== PostMode.archived && mode !== PostMode.moderated )
+            { %>
             <form action="/comment/<%= postId %>/<%= userId %>" method="POST">
                 <label for="content">New Comment:</label><br />
                 <textarea
@@ -48,6 +50,9 @@
                 ><br />
                 <input type="submit" value="Comment" />
             </form>
+            <% } else { %>
+            <div>Post is restriced. No more comments can be added.</div>
+            <% } %>
             <br /><br />
             <% if (comments.length !== 0) { %>
             <div id="comments">
@@ -61,7 +66,8 @@
                             >
                                 <%= comment.author %>
                             </div>
-                            <% if (userId == comment.author) { %>
+                            <% if (userId == comment.author) { %> <% if (mode
+                            !== PostMode.moderated) { %>
                             <img
                                 title="Delete comment"
                                 src="/_img/delete.svg"
@@ -71,6 +77,8 @@
                                 data-postId="<%= postId %>"
                                 data-commentId="<%= commentId %>"
                             />
+                            <% } %> <% if (mode !== PostMode.archied && mode !==
+                            PostMode.moderated) { %>
                             <img
                                 title="Edit comment"
                                 src="/_img/pencil.svg"
@@ -80,6 +88,7 @@
                                 data-postId="<%= postId %>"
                                 data-commentId="<%= commentId %>"
                             />
+                            <% } %>
                             <!-- Its a class because it could be multiple comments -->
                             <% } %>
                         </div>
