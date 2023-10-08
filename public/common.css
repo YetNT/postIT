@@ -123,3 +123,21 @@ input[type="submit"]:hover {
     color: var(--background-color);
     cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+    main {
+        margin-top: clamp(0.5vh, 12vh, 70vh);
+        padding: clamp(2em, 2.5em, 4em);
+    }
+    #topnav a,
+    #topnav div {
+        font-size: clamp(1.2em, 1.2em, 1em);
+    }
+    #navbarLines {
+        width: clamp(1em, 2em, 3em);
+    }
+
+    #navbarLines:hover {
+        width: 3em;
+    }
+}
