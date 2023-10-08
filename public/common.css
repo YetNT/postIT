@@ -25,6 +25,10 @@ html {
     color: #f2f2f2;
 }
 
+body {
+    font-size: 1.2em;
+}
+
 a,
 a:visited {
     color: white;
@@ -91,7 +95,7 @@ h1 {
 }
 
 main {
-    margin-top: clamp(2vh, 15vh, 80vh);
+    /* margin-top: clamp(1vh, 15vh, 80vh); */
     padding: clamp(4em, 4.5em, 6em);
 }
 
@@ -137,7 +141,7 @@ button:hover {
 
 @media only screen and (max-width: 600px) {
     main {
-        margin-top: clamp(0.5vh, 12vh, 70vh);
+        /* margin-top: clamp(0.5vh, 12vh, 70vh); */
         padding: clamp(2em, 2.5em, 4em);
     }
     #topnav a,

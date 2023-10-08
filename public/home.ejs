@@ -22,8 +22,29 @@
             </div>
         </div>
         <main>
-            <h1>PostIT</h1>
-            <p>Got an idea, problem or just bored? PostIT here then tf?</p>
+            <h1 id="title">PostIT</h1>
+            <p>Got an idea, problem or just bored? PostIT then tf?</p>
+            <h1>Discover</h1>
+            <discover>
+                <div id="devPosts">
+                    <div>Dev Posts</div>
+                    <% devPosts.forEach((post) => {%>
+                    <post>
+                        <name><%= post.title %></name>
+                        <content><%= post.content %></content>
+                    </post>
+                    <% }) %>
+                </div>
+                <div id="newPosts">
+                    <div>New Posts</div>
+                </div>
+                <div id="sponsoredPosts">
+                    <div>Sponsored Posts</div>
+                </div>
+                <div id="archivedPosts">
+                    <div>Archived</div>
+                </div>
+            </discover>
         </main>
     </body>
 </html>
