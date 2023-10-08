@@ -37,12 +37,24 @@
                 </div>
                 <div id="newPosts">
                     <div>New Posts</div>
+                    <% newPosts.forEach((post) => { %>
+                    <post>
+                        <name><%= post.title %></name>
+                        <content><%= post.content %></content>
+                    </post>
+                    <% }) %>
                 </div>
                 <div id="sponsoredPosts">
                     <div>Sponsored Posts</div>
                 </div>
                 <div id="archivedPosts">
                     <div>Archived</div>
+                    <% archivedPosts.forEach((post) => { %>
+                    <post>
+                        <name><%= post.title %></name>
+                        <content><%= post.content %></content>
+                    </post>
+                    <% }) %>
                 </div>
             </discover>
         </main>
