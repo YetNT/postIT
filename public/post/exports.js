@@ -3,13 +3,13 @@ const User = require("../../userSchema");
 const { PostMode } = require("../../util");
 var url = require("url");
 
-function render(req, res, post, user) {
+function render(page, req, res, post, user) {
     let edit = "";
     if (post.authorId == user.id) {
-        edit = `<div class="navA" onclick="myFunction()">Edit Post</div>`;
+        edit = `<a class="navA" href="/post/${post.id}/edit">Edit Post</a>`;
     }
 
-    res.render("post/page", {
+    res.render(`post/${page}`, {
         title: post.title,
         content: post.content.replace(/\n/g, "<br>"),
         edit: edit,
@@ -46,7 +46,33 @@ const get = async (req, res) => {
             return res.status(405).send("Not allowed.");
         }
 
-        render(req, res, post, user);
+        render("page", req, res, post, user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
+const getEdit = async (req, res) => {
+    const id = req.params.id;
+    const userCookie = req.cookies.user;
+
+    try {
+        const post = await Post.findOne({ id: id });
+        let JSONparsed =
+            userCookie !== undefined
+                ? JSON.parse(userCookie)
+                : { _doc: { id: "invalid" } };
+        let user = await User.findOne({
+            id: JSONparsed["_doc"].id,
+        });
+
+        if (!post) return res.status(404).send("Post not found");
+        if (!user) user = { id: 0, username: "Unknown" };
+        if (user.id !== post.authorId)
+            return res.status(400).send("Not allowed.");
+
+        render("edit", req, res, post, user);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
@@ -83,7 +109,7 @@ const newComment = async (req, res) => {
 const editPost = async (req, res) => {
     try {
         const postId = req.params.id;
-        const newContent = req.body.newContent;
+        const newContent = req.body.content;
 
         let post = await Post.findOne({ id: postId });
 
@@ -91,7 +117,8 @@ const editPost = async (req, res) => {
 
         post.content = newContent;
         await post.save();
-        res.status(200);
+
+        res.redirect(`/post/${postId}`);
     } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error. \n ");
@@ -138,4 +165,4 @@ const deleteOrEditComment = async (req, res) => {
     }
 };
 
-module.exports = { get, newComment, deleteOrEditComment, editPost };
+module.exports = { get, newComment, deleteOrEditComment, editPost, getEdit };
