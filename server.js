@@ -45,30 +45,33 @@ mongoose
         console.error("Error connecting to MongoDB Atlas:", err);
     });
 
-app.get("/", home.get);
+app.get("/", home.get); // home page
 
-app.get("/user/:id", user.get);
-app.get("/create", validateSession, create.get);
-app.post("/create", create.post);
+app.get("/user/:id", user.get); // user's posts and profile
+app.get("/create", validateSession, create.get); // create a post
+app.post("/create", create.post); // create a post,  backend
 
-app.get("/post/:id", posts.get);
-app.patch("/post/:id/edit", posts.editPost);
-app.post("/comment/:post/:user", posts.newComment);
-app.delete("/comment/:post/:user/:comment", posts.deleteOrEditComment);
+app.get("/post/:id", posts.get); // view a post
+app.get("/post/:id/edit", posts.getEdit); // edit a post
+app.post("/post/:id/edit", posts.editPost); // edit a post, backend
+app.post("/comment/:post/:user", posts.newComment); // comment on a post, backend
+app.delete("/comment/:post/:user/:comment", posts.deleteOrEditComment); // delete a comment, backend
 app.patch(
     "/comment/:post/:user/:comment/:newContent",
     posts.deleteOrEditComment
-);
-app.get("/tos", tos);
-app.get("/signup", signup.get);
-app.post("/signup", signup.post);
-app.get("/signin", signin.get);
-app.post("/signin", signin.post);
-app.get("/signout", signout);
+); // edit a comment, backend
+app.get("/tos", tos); // ToS
+app.get("/signup", signup.get); // signup page
+app.post("/signup", signup.post); // signup page, backend
+app.get("/signin", signin.get); // signin page
+app.post("/signin", signin.post); // signin page, backend
+app.get("/signout", signout); // signout page
 
+// API
 app.post("/api/userExists", api.userExists);
 app.post("/api/correctPassword", api.correctPassword);
 
+// 404 redirect for invalids URLS
 app.use((req, res) => {
     res.status(404).sendFile(
         path.join(__dirname, "/public", "/_404", "/404.html")
