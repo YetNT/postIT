@@ -2,6 +2,7 @@ const { validateSessionFriendly, isAuthor } = require("../_auth/isSignedIn");
 const Post = require("../../postSchema");
 const User = require("../../userSchema");
 var url = require("url");
+const { PostMode } = require("../../util");
 
 async function render(req, res, userPosts, id, links, userExists = true) {
     const signedIn = await validateSessionFriendly(req);
@@ -9,7 +10,7 @@ async function render(req, res, userPosts, id, links, userExists = true) {
         signedIn: signedIn.output,
         userId: signedIn.userId,
         givenUserId: id,
-        who: (await isAuthor(req, signedIn.username))
+        who: (await isAuthor(req, id))
             ? "Your Posts"
             : `${signedIn.username}'s Posts`,
         userPosts,
@@ -22,7 +23,22 @@ const get = async (req, res) => {
     try {
         const id = req.params.id;
         const user = await User.findOne({ id: id });
-        var userPosts = await Post.find({ authorId: id });
+        let isAuthor = await isAuthor(req, id);
+
+        // Modify the query to exclude posts with mode 4 or 5
+        const userPosts = await Post.find({
+            authorId: id,
+            mode: {
+                $nin: isAuthor
+                    ? []
+                    : [
+                          PostMode.authorPrivate,
+                          PostMode.linkPrivate,
+                          PostMode.moderated,
+                      ],
+            },
+        });
+
         var links = [];
         userPosts.forEach((post) => {
             links.push(
@@ -33,6 +49,7 @@ const get = async (req, res) => {
                 })
             );
         });
+
         const userExists = !user ? false : true;
         await render(req, res, userPosts, id, links, userExists);
     } catch (error) {
