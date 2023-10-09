@@ -58,20 +58,35 @@ const PostMode = Object.freeze({
 
 const UserStatus = Object.freeze({
     dev: 0,
-    mod: 1,
-    bot: 2,
-    company: 3,
-    sponsor: 4,
-    friend: 5,
-    normal: 6,
-    mute: 7,
-    banned: 8,
+    contributor: 1,
+    mod: 2,
+    bot: 3,
+    company: 4,
+    sponsor: 5,
+    friend: 6,
+    normal: 7,
+    mute: 8,
+    banned: 9,
+});
+
+const UserStatusInfo = Object.freeze({
+    0: "creator, developer and maintainer of postIT website and server",
+    1: "Owner of a successfully merged pull request",
+    2: "Moderator, who can ban and mute users, and place posts for moderation/archive",
+    3: "Robot, Not a real human but a machine with set tasks and goals",
+    4: "Some goofy corperation",
+    5: "somebody who has helped development of this buy donating. Thank you :)",
+    6: "real life friend of dev",
+    7: "A normal person on this site",
+    8: "Muted. This person cannot make/edit comments or post posts",
+    9: "Banned User. They have no access to the site whatsoever",
 });
 
 module.exports = {
     verifySessionToken,
     PostMode,
     UserStatus,
+    UserStatusInfo,
     generateSlug,
     generateToken,
     encryptPassword,
