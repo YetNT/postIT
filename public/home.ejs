@@ -29,31 +29,31 @@
                 <div id="devPosts">
                     <div>Dev Posts</div>
                     <% devPosts.forEach((post) => {%>
-                    <post>
+                    <a class="post" href="<%= post.link %>">
                         <name><%= post.title %></name>
                         <content><%= post.content %></content>
-                    </post>
+                    </a>
                     <% }) %>
                 </div>
                 <div id="newPosts">
                     <div>New Posts</div>
                     <% newPosts.forEach((post) => { %>
-                    <post>
+                    <a class="post" href="<%= post.link %>">
                         <name><%= post.title %></name>
                         <content><%= post.content %></content>
-                    </post>
+                    </a>
                     <% }) %>
                 </div>
                 <div id="sponsoredPosts">
-                    <div>Sponsored Posts</div>
+                    <div>Sponsored</div>
                 </div>
                 <div id="archivedPosts">
                     <div>Archived</div>
                     <% archivedPosts.forEach((post) => { %>
-                    <post>
+                    <a class="post" href="<%= post.link %>">
                         <name><%= post.title %></name>
                         <content><%= post.content %></content>
-                    </post>
+                    </a>
                     <% }) %>
                 </div>
             </discover>

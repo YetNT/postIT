@@ -10,6 +10,7 @@ discover {
 }
 
 discover * {
+    /* post types */
     display: flex;
     flex-direction: row;
     column-gap: 10px;
@@ -17,23 +18,37 @@ discover * {
 }
 
 discover * * {
+    /* posts in post types along with type name */
     padding: 0.5em;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Display ellipses for overflow text */
+    text-overflow: ellipsis;
 }
 
-post {
+discover * div {
+    /* post type name */
+    color: blanchedalmond;
+}
+
+.post {
+    /* singular post */
     display: flex;
     flex-direction: column;
-    text-overflow: ellipsis; /* Display ellipses for overflow text */
+    text-overflow: ellipsis;
     flex: 1;
     align-items: baseline;
     width: calc(100%);
+    border: 2px greenyellow solid;
+    transition: border-color 2s, border-radius 2s;
 }
 
-post name,
-post content {
+.post:hover {
+    border-color: blue;
+    border-radius: 4px;
+}
+
+.post name,
+.post content {
     padding: 0.2em;
     display: inline-block;
     white-space: nowrap;
