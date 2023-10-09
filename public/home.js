@@ -19,7 +19,7 @@ function addLink(req, arr) {
         element.link = url.format({
             protocol: req.protocol,
             host: req.get("host"),
-            pathname: `post/${element.id}`,
+            pathname: `post/${element._id.toString()}`,
         });
         return element; // Return the modified element
     });

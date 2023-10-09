@@ -39,7 +39,9 @@
                     post = userPosts[i]; let link = links[i]%>
                     <div class="post">
                         <h2>
-                            <a href="/post/<%= post.id %>"><%= post.title %></a>
+                            <a href="/post/<%= post._id %>"
+                                ><%= post.title %></a
+                            >
                         </h2>
                         <p class="content"><%= post.content %></p>
                     </div>

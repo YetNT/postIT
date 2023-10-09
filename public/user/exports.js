@@ -46,7 +46,7 @@ const get = async (req, res) => {
                 url.format({
                     protocol: req.protocol,
                     host: req.get("host"),
-                    pathname: `post/${post.id}`,
+                    pathname: `post/${post._id.toString()}`,
                 })
             );
         });

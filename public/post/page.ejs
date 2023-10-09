@@ -26,7 +26,9 @@
         <main>
             <h1>
                 <div><%= title %> <%= moderationStatus %></div>
-                <div id="postCredit">by <%= username %></div>
+                <div id="postCredit">
+                    by <a href="/user/<%= userId %>"><%= username %></a>
+                </div>
             </h1>
             <p id="content"><%- content %></p>
             <div id="row"><%- edit %> <%- deletePostForm %></div>

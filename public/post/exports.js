@@ -8,8 +8,8 @@ function render(page, req, res, post, user) {
         deletePostForm,
         moderationStatus = "";
     if (post.authorId == user.id) {
-        edit = `<a href="/post/${post.id}/edit"><button>Edit Post</button></a>`;
-        deletePostForm = `<form action="/post/${post.id}" method="POST"><input type="submit" value="Delete Post" /></form>`;
+        edit = `<a href="/post/${post._id.toString()}/edit"><button>Edit Post</button></a>`;
+        deletePostForm = `<form action="/post/${post._id.toString()}" method="POST"><input type="submit" value="Delete Post" /></form>`;
     }
 
     moderationStatus =
@@ -24,7 +24,7 @@ function render(page, req, res, post, user) {
         content: post.content.replace(/\n/g, "<br>"),
         edit: edit,
         username: post.authorName,
-        postId: post.id,
+        postId: post._id.toString(),
         userId: user.id,
         comments: post.comments.reverse(),
         description: post.content,
@@ -45,7 +45,7 @@ const get = async (req, res) => {
     const userCookie = req.cookies.user;
 
     try {
-        const post = await Post.findOne({ id: id });
+        const post = await Post.findOne({ _id: id });
         let JSONparsed =
             userCookie !== undefined
                 ? JSON.parse(userCookie)
@@ -72,7 +72,7 @@ const getEdit = async (req, res) => {
     const userCookie = req.cookies.user;
 
     try {
-        const post = await Post.findOne({ id: id });
+        const post = await Post.findOne({ _id: id });
         let JSONparsed =
             userCookie !== undefined
                 ? JSON.parse(userCookie)
@@ -98,7 +98,7 @@ const newComment = async (req, res) => {
     try {
         const postId = req.params.post;
         const userId = req.params.user;
-        let query = { id: postId };
+        let query = { _id: postId };
 
         let post = await Post.findOne(query);
         if (!post) return res.status(404).send("Post not found.");
@@ -125,7 +125,7 @@ const editPost = async (req, res) => {
         const postId = req.params.id;
         const newContent = req.body.content;
 
-        let post = await Post.findOne({ id: postId });
+        let post = await Post.findOne({ _id: postId });
 
         if (!post) return res.status(404).send("post not found?");
 
@@ -146,7 +146,7 @@ const deleteOrEditComment = async (req, res) => {
     const newContent = req.params.newContent;
 
     try {
-        let post = await Post.findOne({ id: postId });
+        let post = await Post.findOne({ _id: postId });
         let user = await User.findOne({ id: userId });
 
         if (!post || !user) return res.status(404).send("Post/user not found.");
@@ -185,7 +185,7 @@ const deletePost = async (req, res) => {
     const userCookie = req.cookies.user;
 
     try {
-        const post = await Post.findOne({ id: id });
+        const post = await Post.findOne({ _id: id });
         let JSONparsed =
             userCookie !== undefined
                 ? JSON.parse(userCookie)
