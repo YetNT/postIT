@@ -78,7 +78,7 @@ const validateSessionFriendly = async (req) => {
  */
 const isAuthor = async (req, id) => {
     try {
-        const { userId } = validateSessionFriendly(req);
+        const { userId } = await validateSessionFriendly(req);
         if (!userId) {
             return false;
         } else {
