@@ -7,3 +7,31 @@ posts {
     white-space: nowrap;
     overflow: hidden;
 }
+
+userinfo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    column-gap: 2em;
+}
+
+table tr td:first-child {
+    color: antiquewhite;
+}
+
+#bio {
+    color: cornsilk;
+}
+
+@media only screen and (max-width: 600px) {
+    #container {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

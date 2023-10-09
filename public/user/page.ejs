@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>postIT | <%= givenUserId %>'s profile</title>
+        <title>postIT | <%= userId %>'s profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script defer src="./script.js"></script>
         <link href="/common.css" rel="stylesheet" type="text/css" />
@@ -21,25 +21,47 @@
         <main>
             <% if (!userExists) {%>
             <h1>
-                There is no user with the userId: <%= givenUserId %>. Perhaps
-                you made a typo?
+                There is no user with the userId: <%= userId %>. Perhaps you
+                made a typo?
             </h1>
             <% } else { %>
-            <h1><%= who %></h1>
-            <posts>
-                <% for (let i = 0; i < userPosts.length; i++) {%> <% let post =
-                userPosts[i]; let link = links[i]%>
-                <div class="post">
-                    <h2>
-                        <a href="/post/<%= post.id %>" target="_blank"
-                            ><%= post.title %></a
-                        >
-                    </h2>
-                    <p class="content"><%= post.content %></p>
-                    <!-- Add more HTML here to display other post properties -->
-                </div>
-                <% }; %>
-            </posts>
+            <h1>
+                <%= username %><img
+                    src="../_img/roles/<%= userStatus %>.svg"
+                    alt="SVG Image for User Status Mode"
+                    width="30em"
+                    title="<%= UserStatusInfo[userStatus] %>"
+                />
+            </h1>
+            <div id="container">
+                <posts>
+                    <% for (let i = 0; i < userPosts.length; i++) {%> <% let
+                    post = userPosts[i]; let link = links[i]%>
+                    <div class="post">
+                        <h2>
+                            <a href="/post/<%= post.id %>"><%= post.title %></a>
+                        </h2>
+                        <p class="content"><%= post.content %></p>
+                    </div>
+                    <% }; %>
+                </posts>
+                <userinfo>
+                    <div id="bio">
+                        <% if (userBio == "") {%> User has no bio. <% } else {
+                        %> <%= userBio %> <% } %>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>Joined:</td>
+                            <td><%= userJoined.toLocaleString() %></td>
+                        </tr>
+                        <tr>
+                            <td>User ID:</td>
+                            <td><%= userId %></td>
+                        </tr>
+                    </table>
+                </userinfo>
+            </div>
             <% } %>
         </main>
         <script src="/script.js"></script>

@@ -2,20 +2,21 @@ const { validateSessionFriendly, isAuthor } = require("../_auth/isSignedIn");
 const Post = require("../../postSchema");
 const User = require("../../userSchema");
 var url = require("url");
-const { PostMode } = require("../../util");
+const { PostMode, UserStatusInfo } = require("../../util");
 
-async function render(req, res, userPosts, id, links, userExists = true) {
+async function render(req, res, userPosts, user, links, userExists = true) {
     const signedIn = await validateSessionFriendly(req);
     res.render("user/page", {
         signedIn: signedIn.output,
-        userId: signedIn.userId,
-        givenUserId: id,
-        who: (await isAuthor(req, id))
-            ? "Your Posts"
-            : `${signedIn.username}'s Posts`,
+        userId: user.id,
+        username: user.username,
+        userStatus: user.status,
+        userBio: user.profile.bio,
+        userJoined: user.profile.joined,
         userPosts,
         userExists,
         links,
+        UserStatusInfo,
     });
 }
 
@@ -51,7 +52,7 @@ const get = async (req, res) => {
         });
 
         const userExists = !user ? false : true;
-        await render(req, res, userPosts, id, links, userExists);
+        await render(req, res, userPosts, user, links, userExists);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
