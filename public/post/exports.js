@@ -23,6 +23,7 @@ function render(page, req, res, post, user) {
         title: post.title,
         content: post.content.replace(/\n/g, "<br>"),
         edit: edit,
+        authorUserId: post.authorId,
         username: post.authorName,
         postId: post._id.toString(),
         userId: user.id,
