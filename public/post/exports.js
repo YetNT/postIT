@@ -8,8 +8,8 @@ function render(page, req, res, post, user) {
         deletePostForm,
         moderationStatus = "";
     if (post.authorId == user.id) {
-        edit = `<a href="/post/${post._id.toString()}/edit"><button>Edit Post</button></a>`;
-        deletePostForm = `<form action="/post/${post._id.toString()}" method="POST"><input type="submit" value="Delete Post" /></form>`;
+        edit = `<a href="/post/${post.id}/edit"><button>Edit Post</button></a>`;
+        deletePostForm = `<form action="/post/${post.id}" method="POST"><input type="submit" value="Delete Post" /></form>`;
     }
 
     moderationStatus =
@@ -25,7 +25,7 @@ function render(page, req, res, post, user) {
         edit: edit,
         authorUserId: post.authorId,
         username: post.authorName,
-        postId: post._id.toString(),
+        postId: post.id,
         userId: user.id,
         comments: post.comments.reverse(),
         description: post.content,
@@ -99,12 +99,12 @@ const newComment = async (req, res) => {
     try {
         const postId = req.params.post;
         const userId = req.params.user;
-        let query = { _id: postId };
+        let query = { id: postId };
 
         let post = await Post.findOne(query);
         if (!post) return res.status(404).send("Post not found.");
 
-        let user = await User.findOne({ id: userId });
+        let user = await User.findOne({ _id: userId });
         if (!user) return res.status(404).send("Invallid user?");
 
         post.comments.push({
@@ -148,12 +148,12 @@ const deleteOrEditComment = async (req, res) => {
 
     try {
         let post = await Post.findOne({ _id: postId });
-        let user = await User.findOne({ id: userId });
+        let user = await User.findOne({ _id: userId });
 
         if (!post || !user) return res.status(404).send("Post/user not found.");
 
         const comment = post.comments.find(
-            (comment) => comment._id.toString() === commentId
+            (comment) => comment.id === commentId
         );
 
         if (!comment) return res.status(404).send("Comment not found.");
@@ -169,7 +169,7 @@ const deleteOrEditComment = async (req, res) => {
         } else {
             // Deleting comment
             post.comments = post.comments.filter(
-                (comment) => comment._id.toString() !== commentId
+                (comment) => comment.id !== commentId
             );
         }
 

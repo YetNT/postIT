@@ -45,6 +45,7 @@ mongoose
         console.error("Error connecting to MongoDB Atlas:", err);
     });
 
+
 app.get("/", home.get); // home page
 
 app.get("/user/:id", user.get); // user's posts and profile

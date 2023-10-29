@@ -14,6 +14,7 @@ const post = async (req, res) => {
         const option = req.body.option; // post type options.
         const user = JSON.parse(req.cookies.user)["_doc"];
 
+
         let post = new Post({
             title: title,
             content: content,
@@ -22,9 +23,9 @@ const post = async (req, res) => {
             authorName: user.username,
         });
 
-        await post.save();
+        await post.save()
 
-        res.redirect(path.join(`/post/${post._id.toString()}`));
+        await res.redirect(path.join(`/post/${post.id}`));
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
